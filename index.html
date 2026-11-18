@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#050814" />
+  <meta name="theme-color" content="#080510" />
   <title>VaultGem — Coins &amp; Diamonds Store</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,28 +13,29 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- Dynamic Ambient Lighting -->
+    <!-- Ambient Color Lighting -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="bg-orb orb-3"></div>
 
-    <!-- ================= 1. 3D WELCOME SCREEN ================= -->
+    <!-- ================= 1. UPGRADED 3D WELCOME SCREEN ================= -->
     <section id="welcome-screen" class="welcome-screen active">
-      <!-- 3D Perspective Grid & Volumetric Spotlight -->
       <div class="welcome-spotlight"></div>
+      <div class="welcome-halo"></div>
       <div class="cyber-grid"></div>
       <div class="floating-particles" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
 
       <div class="welcome-card-3d">
         <div class="card-shine"></div>
 
-        <!-- 3D Gyroscope & Floating Assets Stage -->
+        <!-- 3D Tri-Ring Gyroscope & Floating Treasures -->
         <div class="emblem-3d-stage">
           <div class="stage-glow"></div>
           <div class="gyro-ring gyro-1"></div>
           <div class="gyro-ring gyro-2"></div>
+          <div class="gyro-ring gyro-3"></div>
           <div class="emblem-core">
             <span class="float-coin" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -52,13 +53,13 @@
             </span>
             <span class="float-diamond" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6 3H18L22 9L12 21L2 9L6 3Z" fill="url(#diaGrad)" stroke="#E0F2FE" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="M2 9H22M12 21L8.5 9L12 3L15.5 9L12 21Z" stroke="#BAE6FD" stroke-width="1.2" stroke-linejoin="round"/>
+                <path d="M6 3H18L22 9L12 21L2 9L6 3Z" fill="url(#diaGrad)" stroke="#CCFBF1" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M2 9H22M12 21L8.5 9L12 3L15.5 9L12 21Z" stroke="#99F6E4" stroke-width="1.2" stroke-linejoin="round"/>
                 <defs>
                   <linearGradient id="diaGrad" x1="2" y1="3" x2="22" y2="21">
-                    <stop stop-color="#7DD3FC"/>
-                    <stop offset="0.55" stop-color="#38BDF8"/>
-                    <stop offset="1" stop-color="#6366F1"/>
+                    <stop stop-color="#5EEAD4"/>
+                    <stop offset="0.5" stop-color="#22D3EE"/>
+                    <stop offset="1" stop-color="#A855F7"/>
                   </linearGradient>
                 </defs>
               </svg>
@@ -66,15 +67,15 @@
           </div>
         </div>
 
-        <span class="welcome-badge">⚡ Next-Gen Digital Vault</span>
+        <span class="welcome-badge">✦ Royal Digital Vault</span>
         <h1 class="welcome-title">Welcome to <span class="gradient-text">VaultGem</span></h1>
         <p class="welcome-subtitle">
-          Unlock gleaming Coins &amp; rare Diamonds, level up your treasure vault, and dominate the global rankings.
+          Collect luminous Coins &amp; rare Diamonds, grow your digital fortune, and claim #1 on the global leaderboard.
         </p>
 
         <div class="welcome-highlights">
-          <div class="highlight-pill">✨ 3D Vault</div>
-          <div class="highlight-pill">🏆 Live Rank</div>
+          <div class="highlight-pill">⚡ Instant Top-up</div>
+          <div class="highlight-pill">👑 Global Rank</div>
           <div class="highlight-pill">🛡️ Play Billing</div>
         </div>
 
@@ -89,60 +90,26 @@
 
     <!-- ================= 2. MAIN APPLICATION ================= -->
     <div id="main-app" class="main-app hidden">
-      <!-- Fixed Top Header + Fixed Section Navigation -->
-      <div class="sticky-header">
-        <header class="top-bar">
-          <div class="brand-mini">
-            <div class="brand-orb"></div>
-            <div>
-              <span class="brand-name">VaultGem</span>
-              <span id="header-username" class="header-user">Loading...</span>
-            </div>
+      <!-- Clean Top Bar -->
+      <header class="top-bar">
+        <div class="brand-mini">
+          <div class="brand-orb"></div>
+          <div>
+            <span class="brand-name">VaultGem</span>
+            <span id="header-username" class="header-user">Loading...</span>
           </div>
-          <div class="balance-pills">
-            <div class="balance-pill coin-pill" title="Current Coins">
-              <span>🪙</span>
-              <span id="header-coins">0</span>
-            </div>
-            <div class="balance-pill dia-pill" title="Current Diamonds">
-              <span>💎</span>
-              <span id="header-diamonds">0</span>
-            </div>
+        </div>
+        <div class="balance-pills">
+          <div class="balance-pill coin-pill" title="Current Coins">
+            <span>🪙</span>
+            <span id="header-coins">0</span>
           </div>
-        </header>
-
-        <!-- Fixed Top Section Buttons (Shop / Leaderboard / Profile) -->
-        <nav class="top-section-nav" aria-label="Main sections">
-          <button class="nav-item active" data-target="view-shop">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-              <line x1="3" y1="6" x2="21" y2="6"/>
-              <path d="M16 10a4 4 0 0 1-8 0"/>
-            </svg>
-            <span>Shop</span>
-          </button>
-
-          <button class="nav-item" data-target="view-leaderboard">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-              <path d="M4 22h16"/>
-              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-            </svg>
-            <span>Leaderboard</span>
-          </button>
-
-          <button class="nav-item" data-target="view-profile">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-            <span>Profile</span>
-          </button>
-        </nav>
-      </div>
+          <div class="balance-pill dia-pill" title="Current Diamonds">
+            <span>💎</span>
+            <span id="header-diamonds">0</span>
+          </div>
+        </div>
+      </header>
 
       <div id="billing-banner" class="billing-banner test hidden"></div>
 
@@ -248,6 +215,38 @@
           </div>
         </section>
       </main>
+
+      <!-- Floating Bottom Navigation Dock (Always Visible While Scrolling) -->
+      <nav class="floating-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-target="view-shop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span>Shop</span>
+        </button>
+
+        <button class="nav-item" data-target="view-leaderboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          </svg>
+          <span>Leaderboard</span>
+        </button>
+
+        <button class="nav-item" data-target="view-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Profile</span>
+        </button>
+      </nav>
     </div>
 
     <!-- Purchase Confirmation Modal -->
@@ -279,4 +278,4 @@
     }
   </script>
 </body>
-</html>
+  </html>
