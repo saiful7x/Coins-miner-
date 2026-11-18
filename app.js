@@ -1,9 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 import {
   getAuth,
   signInAnonymously,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 import {
   getFirestore,
   doc,
@@ -18,7 +18,7 @@ import {
   onSnapshot,
   increment,
   serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD0ZAXVuZ0R46HrZnuIYA7V3HgW91OOEj0",
@@ -183,7 +183,7 @@ function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.remove("hidden");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.add("hidden"), 2800);
+  toastTimer = setTimeout(() => toastEl.classList.add("hidden"), 3200);
 }
 
 function escapeHtml(str) {
@@ -195,7 +195,7 @@ enterAppBtn.addEventListener("click", async () => {
   authStatusText.textContent = "Connecting to VaultGem Cloud...";
 
   try {
-    await initFirebaseSession();
+    await initFirebaseAuth();
     await initGooglePlayBilling();
 
     welcomeScreen.classList.add("fade-out");
@@ -203,30 +203,33 @@ enterAppBtn.addEventListener("click", async () => {
       welcomeScreen.classList.add("hidden");
       mainApp.classList.remove("hidden");
       renderShop();
-    }, 420);
+      syncFirestoreUserAndData(currentUserUid);
+    }, 350);
   } catch (err) {
-    console.error(err);
+    console.error("Auth Error:", err);
     enterAppBtn.disabled = false;
-    authStatusText.textContent = "Firebase Auth error! Security > Authentication থেকে Anonymous চালু করুন।";
-    showToast("কানেক্ট করা যায়নি! Firebase-এ Anonymous Login চালু আছে তো?");
+    authStatusText.textContent = `Error: ${err.code || err.message} (Firebase-এ Anonymous Auth চালু করুন)`;
+    showToast("❌ Firebase Auth কানেক্ট হয়নি!");
   }
 });
 
-function initFirebaseSession() {
+function initFirebaseAuth() {
   return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Connection timeout. ইন্টারনেট বা Firebase সেটিংস চেক করুন।"));
+    }, 12000);
+
     const unsubAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        clearTimeout(timeout);
         unsubAuth();
         currentUserUid = user.uid;
-        await ensureUserDocument(user.uid);
-        listenToCurrentUser(user.uid);
-        listenToRecentPurchases(user.uid);
-        listenToLeaderboard();
-        resolve();
+        resolve(user);
       } else {
         try {
           await signInAnonymously(auth);
         } catch (e) {
+          clearTimeout(timeout);
           unsubAuth();
           reject(e);
         }
@@ -235,21 +238,40 @@ function initFirebaseSession() {
   });
 }
 
-async function ensureUserDocument(uid) {
-  const userRef = doc(db, "users", uid);
-  const snap = await getDoc(userRef);
+async function syncFirestoreUserAndData(uid) {
+  try {
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
 
-  if (!snap.exists()) {
-    await setDoc(userRef, {
-      uid,
-      displayName: generateRandomName(),
-      coinsBalance: 0,
-      diamondsBalance: 0,
-      totalCoinsPurchased: 0,
-      totalDiamondsPurchased: 0,
-      leaderboardScore: 0,
-      createdAt: serverTimestamp()
-    });
+    if (!snap.exists()) {
+      const initialProfile = {
+        uid,
+        displayName: generateRandomName(),
+        coinsBalance: 0,
+        diamondsBalance: 0,
+        totalCoinsPurchased: 0,
+        totalDiamondsPurchased: 0,
+        leaderboardScore: 0,
+        createdAt: serverTimestamp()
+      };
+      await setDoc(userRef, initialProfile);
+      userData = { ...initialProfile, coinsBalance: 0, diamondsBalance: 0, totalCoinsPurchased: 0, totalDiamondsPurchased: 0 };
+      updateProfileUI();
+    } else {
+      userData = snap.data();
+      updateProfileUI();
+    }
+
+    listenToCurrentUser(uid);
+    listenToRecentPurchases(uid);
+    listenToLeaderboard();
+  } catch (err) {
+    console.error("Firestore Error:", err);
+    showToast("⚠️ Firestore Database বা Rules সেট করা হয়নি!");
+    const banner = document.getElementById("billing-banner");
+    banner.className = "billing-banner test";
+    banner.innerHTML = `⚠️ <strong>Database Warning:</strong> ${escapeHtml(err.message)} — Firebase Console-এ Firestore Database বানিয়ে Rules Publish করুন।`;
+    banner.classList.remove("hidden");
   }
 }
 
@@ -505,7 +527,7 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
     modal.classList.add("hidden");
   } catch (err) {
     console.error(err);
-    showToast(err.name === "AbortError" ? "পেমেন্ট বাতিল করা হয়েছে" : "❌ পেমেন্ট সম্পন্ন হয়নি!");
+    showToast(err.name === "AbortError" ? "পেমেন্ট বাতিল করা হয়েছে" : "❌ পেমেন্ট সম্পন্ন হয়নি! Firestore Rules চেক করুন।");
   } finally {
     confirmBtn.disabled = false;
     confirmBtn.textContent = "Proceed to Pay";
