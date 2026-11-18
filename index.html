@@ -13,12 +13,12 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- Ambient Emerald & Gold Lighting -->
+    <!-- Ambient Lighting -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="bg-orb orb-3"></div>
 
-    <!-- ================= 1. UPGRADED 3D WELCOME SCREEN ================= -->
+    <!-- ================= 1. 3D WELCOME SCREEN ================= -->
     <section id="welcome-screen" class="welcome-screen active">
       <div class="welcome-spotlight"></div>
       <div class="welcome-halo"></div>
@@ -30,7 +30,6 @@
       <div class="welcome-card-3d">
         <div class="card-shine"></div>
 
-        <!-- 3D Tri-Ring Gyroscope & Floating Treasures -->
         <div class="emblem-3d-stage">
           <div class="stage-glow"></div>
           <div class="gyro-ring gyro-1"></div>
@@ -111,17 +110,132 @@
         </div>
       </header>
 
-      <!-- Floating Top Navigation Dock (Always Floating at Top Over Display) -->
-      <nav class="floating-top-nav" aria-label="Main navigation">
-        <button class="nav-item active" data-target="view-shop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-          <span>Shop</span>
-        </button>
+      <div id="billing-banner" class="billing-banner test hidden"></div>
 
+      <main class="view-container">
+        <!-- ========== SHOP SECTION ========== -->
+        <section id="view-shop" class="app-view active">
+          <div class="section-header">
+            <h2>Treasure Shop</h2>
+            <p>Select a currency &amp; choose your package</p>
+          </div>
+
+          <div class="shop-tabs">
+            <button class="shop-tab active" data-shop="coins">
+              <span>🪙</span> Coins Purchase
+            </button>
+            <button class="shop-tab" data-shop="diamonds">
+              <span>💎</span> Diamond Purchase
+            </button>
+          </div>
+
+          <div id="package-filters" class="range-filters">
+            <button class="filter-chip active" data-range="all">All Packages</button>
+            <button class="filter-chip" data-range="starter">Starter ($0.51–$10)</button>
+            <button class="filter-chip" data-range="pro">Pro ($11–$50)</button>
+            <button class="filter-chip" data-range="whale">VIP ($51–$100+)</button>
+          </div>
+
+          <div id="shop-grid" class="shop-grid"></div>
+        </section>
+
+        <!-- ========== LEADERBOARD SECTION ========== -->
+        <section id="view-leaderboard" class="app-view">
+          <div class="section-header">
+            <h2>Global Leaderboard</h2>
+            <p>Top collectors ranked worldwide</p>
+          </div>
+
+          <div class="lb-sort-tabs">
+            <button class="lb-sort-btn active" data-sort="leaderboardScore">Overall Top</button>
+            <button class="lb-sort-btn" data-sort="totalCoinsPurchased">Most Coins</button>
+            <button class="lb-sort-btn" data-sort="totalDiamondsPurchased">Most Diamonds</button>
+          </div>
+
+          <div id="lb-podium" class="lb-podium"></div>
+
+          <div id="lb-list" class="lb-list">
+            <div class="loading-state">Loading global rankings...</div>
+          </div>
+        </section>
+
+        <!-- ========== PREMIUM PROFILE SECTION ========== -->
+        <section id="view-profile" class="app-view">
+          <div class="section-header">
+            <h2>My VIP Vault</h2>
+            <p>Your collector identity &amp; treasure summary</p>
+          </div>
+
+          <!-- Luxury VIP Member Card -->
+          <div class="vip-profile-card">
+            <div class="vip-card-shine"></div>
+            <div class="vip-top-row">
+              <span class="vip-tier-badge">👑 VIP COLLECTOR</span>
+              <span class="vip-live-dot">● LIVE SYNC</span>
+            </div>
+            <div class="vip-identity-row">
+              <div class="avatar-ring">
+                <div class="avatar-circle" id="profile-avatar">VG</div>
+              </div>
+              <div class="profile-meta">
+                <h3 id="profile-display-name">Player</h3>
+                <span class="member-id" id="profile-uid">ID: ---</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nickname Edit Box -->
+          <div class="premium-box">
+            <label for="edit-name-input" class="input-label">Edit Display Name</label>
+            <div class="name-edit-row">
+              <div class="input-with-icon">
+                <span class="input-prefix">@</span>
+                <input type="text" id="edit-name-input" maxlength="22" placeholder="Enter new nickname" />
+              </div>
+              <button id="save-name-btn" class="btn-save">Save</button>
+            </div>
+            <small class="input-hint">Updates immediately on the global leaderboard.</small>
+          </div>
+
+          <!-- Premium 2x2 Treasury Cards -->
+          <div class="stats-grid">
+            <div class="stat-card gold-card">
+              <div class="stat-icon-wrap gold-bg">🪙</div>
+              <span class="stat-label">Current Coins</span>
+              <strong class="stat-value" id="stat-cur-coins">0</strong>
+            </div>
+            <div class="stat-card cyan-card">
+              <div class="stat-icon-wrap cyan-bg">💎</div>
+              <span class="stat-label">Current Diamonds</span>
+              <strong class="stat-value" id="stat-cur-diamonds">0</strong>
+            </div>
+            <div class="stat-card emerald-card">
+              <div class="stat-icon-wrap emerald-bg">📦</div>
+              <span class="stat-label">Total Coins Purchased</span>
+              <strong class="stat-value" id="stat-total-coins">0</strong>
+            </div>
+            <div class="stat-card purple-card">
+              <div class="stat-icon-wrap purple-bg">✨</div>
+              <span class="stat-label">Total Diamonds Purchased</span>
+              <strong class="stat-value" id="stat-total-diamonds">0</strong>
+            </div>
+          </div>
+
+          <!-- Transaction Ledger -->
+          <div class="premium-box">
+            <div class="box-header-row">
+              <h4 class="card-subtitle">Recent Purchases</h4>
+              <span class="ledger-tag">History</span>
+            </div>
+            <div id="recent-purchases" class="recent-list">
+              <p class="empty-note">No purchases yet. Visit the Shop!</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Fixed TikTok-Style Bottom Navigation Bar -->
+      <nav class="bottom-nav" aria-label="Main navigation">
         <button class="nav-item" data-target="view-leaderboard">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
@@ -131,7 +245,23 @@
             <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
             <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
           </svg>
-          <span>Leaderboard</span>
+          <span>Ranks</span>
+        </button>
+
+        <!-- Center Iconic Dual-Glow Shop Button (Just like your screenshot!) -->
+        <button class="nav-item nav-center active" data-target="view-shop" aria-label="Shop">
+          <div class="center-pill-wrap">
+            <span class="pill-edge-left"></span>
+            <span class="pill-edge-right"></span>
+            <div class="center-pill-core">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+          </div>
+          <span>Shop</span>
         </button>
 
         <button class="nav-item" data-target="view-profile">
@@ -142,6 +272,148 @@
           <span>Profile</span>
         </button>
       </nav>
+    </div>
+
+    <!-- Purchase Confirmation Modal -->
+    <div id="purchase-modal" class="modal-backdrop hidden">
+      <div class="modal-sheet">
+        <div class="modal-handle"></div>
+        <div class="modal-icon" id="modal-icon">🪙</div>
+        <h3 id="modal-title">Confirm Purchase</h3>
+        <p id="modal-desc">You are about to purchase 100 Coins</p>
+        <span id="modal-mode-tag" class="modal-mode-tag">Google Play Billing</span>
+        <div class="modal-price-box">
+          <span>Total Amount</span>
+          <strong id="modal-price">$1.01</strong>
+        </div>
+        <div class="modal-actions">
+          <button id="modal-cancel" class="btn-cancel">Cancel</button>
+          <button id="modal-confirm" class="btn-confirm">Proceed to Pay</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+  </script>
+</body>
+  </html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#050b0e" />
+  <title>VaultGem — Coins &amp; Diamonds Store</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Ambient Lighting -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- ================= 1. 3D WELCOME SCREEN ================= -->
+    <section id="welcome-screen" class="welcome-screen active">
+      <div class="welcome-spotlight"></div>
+      <div class="welcome-halo"></div>
+      <div class="cyber-grid"></div>
+      <div class="floating-particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="welcome-card-3d">
+        <div class="card-shine"></div>
+
+        <div class="emblem-3d-stage">
+          <div class="stage-glow"></div>
+          <div class="gyro-ring gyro-1"></div>
+          <div class="gyro-ring gyro-2"></div>
+          <div class="gyro-ring gyro-3"></div>
+          <div class="emblem-core">
+            <span class="float-coin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="url(#coinGrad)" stroke="#FEF08A" stroke-width="1.6"/>
+                <circle cx="12" cy="12" r="7.5" stroke="#F59E0B" stroke-width="0.9" stroke-dasharray="2 2"/>
+                <path d="M12 6.5V17.5M9.5 9.5C9.5 8.4 10.6 7.5 12 7.5C13.4 7.5 14.5 8.4 14.5 9.5C14.5 10.6 13.4 11.5 12 11.5C10.6 11.5 9.5 12.4 9.5 13.5C9.5 14.6 10.6 15.5 12 15.5C13.4 15.5 14.5 14.6 14.5 13.5" stroke="#78350F" stroke-width="1.8" stroke-linecap="round"/>
+                <defs>
+                  <linearGradient id="coinGrad" x1="2" y1="2" x2="22" y2="22">
+                    <stop stop-color="#FEF08A"/>
+                    <stop offset="0.5" stop-color="#F59E0B"/>
+                    <stop offset="1" stop-color="#B45309"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+            <span class="float-diamond" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6 3H18L22 9L12 21L2 9L6 3Z" fill="url(#diaGrad)" stroke="#CCFBF1" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M2 9H22M12 21L8.5 9L12 3L15.5 9L12 21Z" stroke="#99F6E4" stroke-width="1.2" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="diaGrad" x1="2" y1="3" x2="22" y2="21">
+                    <stop stop-color="#6EE7B7"/>
+                    <stop offset="0.5" stop-color="#22D3EE"/>
+                    <stop offset="1" stop-color="#0284C7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <span class="welcome-badge">✦ Emerald Digital Vault</span>
+        <h1 class="welcome-title">Welcome to <span class="gradient-text">VaultGem</span></h1>
+        <p class="welcome-subtitle">
+          Collect gleaming Coins &amp; rare Diamonds, grow your digital vault, and rise to #1 on the global leaderboard.
+        </p>
+
+        <div class="welcome-highlights">
+          <div class="highlight-pill">⚡ Instant Top-up</div>
+          <div class="highlight-pill">👑 Global Rank</div>
+          <div class="highlight-pill">🛡️ Play Billing</div>
+        </div>
+
+        <button id="enter-app-btn" class="btn-primary-glow">
+          <span class="btn-shine"></span>
+          <span class="btn-text">Enter App</span>
+          <span class="btn-arrow">→</span>
+        </button>
+        <p id="auth-status-text" class="auth-status-text">Ready to launch</p>
+      </div>
+    </section>
+
+    <!-- ================= 2. MAIN APPLICATION ================= -->
+    <div id="main-app" class="main-app hidden">
+      <!-- Top App Bar -->
+      <header class="top-bar">
+        <div class="brand-mini">
+          <div class="brand-orb"></div>
+          <div>
+            <span class="brand-name">VaultGem</span>
+            <span id="header-username" class="header-user">Loading...</span>
+          </div>
+        </div>
+        <div class="balance-pills">
+          <div class="balance-pill coin-pill" title="Current Coins">
+            <span>🪙</span>
+            <span id="header-coins">0</span>
+          </div>
+          <div class="balance-pill dia-pill" title="Current Diamonds">
+            <span>💎</span>
+            <span id="header-diamonds">0</span>
+          </div>
+        </div>
+      </header>
 
       <div id="billing-banner" class="billing-banner test hidden"></div>
 
@@ -192,61 +464,119 @@
           </div>
         </section>
 
-        <!-- ========== PROFILE SECTION ========== -->
+        <!-- ========== PREMIUM PROFILE SECTION ========== -->
         <section id="view-profile" class="app-view">
           <div class="section-header">
-            <h2>My Profile</h2>
-            <p>Manage your identity &amp; vault stats</p>
+            <h2>My VIP Vault</h2>
+            <p>Your collector identity &amp; treasure summary</p>
           </div>
 
-          <div class="profile-hero-card">
-            <div class="avatar-circle" id="profile-avatar">VG</div>
-            <div class="profile-meta">
-              <h3 id="profile-display-name">Player</h3>
-              <span class="member-id" id="profile-uid">ID: ---</span>
+          <!-- Luxury VIP Member Card -->
+          <div class="vip-profile-card">
+            <div class="vip-card-shine"></div>
+            <div class="vip-top-row">
+              <span class="vip-tier-badge">👑 VIP COLLECTOR</span>
+              <span class="vip-live-dot">● LIVE SYNC</span>
+            </div>
+            <div class="vip-identity-row">
+              <div class="avatar-ring">
+                <div class="avatar-circle" id="profile-avatar">VG</div>
+              </div>
+              <div class="profile-meta">
+                <h3 id="profile-display-name">Player</h3>
+                <span class="member-id" id="profile-uid">ID: ---</span>
+              </div>
             </div>
           </div>
 
-          <div class="card-box">
-            <label for="edit-name-input" class="input-label">Display Name</label>
+          <!-- Nickname Edit Box -->
+          <div class="premium-box">
+            <label for="edit-name-input" class="input-label">Edit Display Name</label>
             <div class="name-edit-row">
-              <input type="text" id="edit-name-input" maxlength="22" placeholder="Enter new nickname" />
+              <div class="input-with-icon">
+                <span class="input-prefix">@</span>
+                <input type="text" id="edit-name-input" maxlength="22" placeholder="Enter new nickname" />
+              </div>
               <button id="save-name-btn" class="btn-save">Save</button>
             </div>
-            <small class="input-hint">Your name appears live on the global leaderboard.</small>
+            <small class="input-hint">Updates immediately on the global leaderboard.</small>
           </div>
 
+          <!-- Premium 2x2 Treasury Cards -->
           <div class="stats-grid">
-            <div class="stat-card gold-accent">
-              <span class="stat-icon">🪙</span>
+            <div class="stat-card gold-card">
+              <div class="stat-icon-wrap gold-bg">🪙</div>
               <span class="stat-label">Current Coins</span>
               <strong class="stat-value" id="stat-cur-coins">0</strong>
             </div>
-            <div class="stat-card cyan-accent">
-              <span class="stat-icon">💎</span>
+            <div class="stat-card cyan-card">
+              <div class="stat-icon-wrap cyan-bg">💎</div>
               <span class="stat-label">Current Diamonds</span>
               <strong class="stat-value" id="stat-cur-diamonds">0</strong>
             </div>
-            <div class="stat-card">
-              <span class="stat-icon">📦</span>
+            <div class="stat-card emerald-card">
+              <div class="stat-icon-wrap emerald-bg">📦</div>
               <span class="stat-label">Total Coins Purchased</span>
               <strong class="stat-value" id="stat-total-coins">0</strong>
             </div>
-            <div class="stat-card">
-              <span class="stat-icon">✨</span>
+            <div class="stat-card purple-card">
+              <div class="stat-icon-wrap purple-bg">✨</div>
               <span class="stat-label">Total Diamonds Purchased</span>
               <strong class="stat-value" id="stat-total-diamonds">0</strong>
             </div>
           </div>
 
-          <div class="card-box">
-            <h4 class="card-subtitle">Recent Purchases</h4>
+          <!-- Transaction Ledger -->
+          <div class="premium-box">
+            <div class="box-header-row">
+              <h4 class="card-subtitle">Recent Purchases</h4>
+              <span class="ledger-tag">History</span>
+            </div>
             <div id="recent-purchases" class="recent-list">
               <p class="empty-note">No purchases yet. Visit the Shop!</p>
             </div>
           </div>
         </section>
       </main>
+
+      <!-- Fixed TikTok-Style Bottom Navigation Bar -->
+      <nav class="bottom-nav" aria-label="Main navigation">
+        <button class="nav-item" data-target="view-leaderboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          </svg>
+          <span>Ranks</span>
+        </button>
+
+        <!-- Center Iconic Dual-Glow Shop Button (Just like your screenshot!) -->
+        <button class="nav-item nav-center active" data-target="view-shop" aria-label="Shop">
+          <div class="center-pill-wrap">
+            <span class="pill-edge-left"></span>
+            <span class="pill-edge-right"></span>
+            <div class="center-pill-core">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+          </div>
+          <span>Shop</span>
+        </button>
+
+        <button class="nav-item" data-target="view-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Profile</span>
+        </button>
+      </nav>
     </div>
 
     <!-- Purchase Confirmation Modal -->
@@ -278,4 +608,4 @@
     }
   </script>
 </body>
-            </html>
+</html>
