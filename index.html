@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#080510" />
+  <meta name="theme-color" content="#050b0e" />
   <title>VaultGem — Coins &amp; Diamonds Store</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="app-shell">
-    <!-- Ambient Color Lighting -->
+    <!-- Ambient Emerald & Gold Lighting -->
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="bg-orb orb-3"></div>
@@ -57,9 +57,9 @@
                 <path d="M2 9H22M12 21L8.5 9L12 3L15.5 9L12 21Z" stroke="#99F6E4" stroke-width="1.2" stroke-linejoin="round"/>
                 <defs>
                   <linearGradient id="diaGrad" x1="2" y1="3" x2="22" y2="21">
-                    <stop stop-color="#5EEAD4"/>
+                    <stop stop-color="#6EE7B7"/>
                     <stop offset="0.5" stop-color="#22D3EE"/>
-                    <stop offset="1" stop-color="#A855F7"/>
+                    <stop offset="1" stop-color="#0284C7"/>
                   </linearGradient>
                 </defs>
               </svg>
@@ -67,10 +67,10 @@
           </div>
         </div>
 
-        <span class="welcome-badge">✦ Royal Digital Vault</span>
+        <span class="welcome-badge">✦ Emerald Digital Vault</span>
         <h1 class="welcome-title">Welcome to <span class="gradient-text">VaultGem</span></h1>
         <p class="welcome-subtitle">
-          Collect luminous Coins &amp; rare Diamonds, grow your digital fortune, and claim #1 on the global leaderboard.
+          Collect gleaming Coins &amp; rare Diamonds, grow your digital vault, and rise to #1 on the global leaderboard.
         </p>
 
         <div class="welcome-highlights">
@@ -90,7 +90,7 @@
 
     <!-- ================= 2. MAIN APPLICATION ================= -->
     <div id="main-app" class="main-app hidden">
-      <!-- Clean Top Bar -->
+      <!-- Top App Bar -->
       <header class="top-bar">
         <div class="brand-mini">
           <div class="brand-orb"></div>
@@ -110,6 +110,38 @@
           </div>
         </div>
       </header>
+
+      <!-- Floating Top Navigation Dock (Always Floating at Top Over Display) -->
+      <nav class="floating-top-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-target="view-shop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span>Shop</span>
+        </button>
+
+        <button class="nav-item" data-target="view-leaderboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          </svg>
+          <span>Leaderboard</span>
+        </button>
+
+        <button class="nav-item" data-target="view-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Profile</span>
+        </button>
+      </nav>
 
       <div id="billing-banner" class="billing-banner test hidden"></div>
 
@@ -215,38 +247,6 @@
           </div>
         </section>
       </main>
-
-      <!-- Floating Bottom Navigation Dock (Always Visible While Scrolling) -->
-      <nav class="floating-nav" aria-label="Main navigation">
-        <button class="nav-item active" data-target="view-shop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-          <span>Shop</span>
-        </button>
-
-        <button class="nav-item" data-target="view-leaderboard">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-            <path d="M4 22h16"/>
-            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-          </svg>
-          <span>Leaderboard</span>
-        </button>
-
-        <button class="nav-item" data-target="view-profile">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Profile</span>
-        </button>
-      </nav>
     </div>
 
     <!-- Purchase Confirmation Modal -->
@@ -278,4 +278,4 @@
     }
   </script>
 </body>
-  </html>
+</html>
